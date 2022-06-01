@@ -3,14 +3,15 @@ import React, { Component } from "react";
 class ListaDeCategorias extends Component {
   _handleEventoInput(e) {
     if (e.key == "Enter") {
-      console.log("adicionar categoria");
+      let valorCategoria = e.target.value;
+      this.props.adicionarCategoria(valorCategoria);
     }
   }
 
   render() {
     return (
-      <>
-        <ul>
+      <section className="lista-categorias">
+        <ul className="lista-categorias_lista">
           {this.props.categorias.map((categoria, index) => {
             return (
               <li key={index} className="lista-categorias_item">
@@ -25,7 +26,7 @@ class ListaDeCategorias extends Component {
           placeholder="Adicionar Categoria"
           onKeyUp={this._handleEventoInput.bind(this)}
         ></input>
-      </>
+      </section>
     );
   }
 }

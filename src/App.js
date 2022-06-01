@@ -9,17 +9,24 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      notas: ["trabalho", "esportes"],
+      notas: [],
+      categorias: [],
     };
   }
 
-  criarNota(titulo, texto) {
-    const novaNota = { titulo, texto };
+  criarNota(titulo, texto, categoria) {
+    const novaNota = { titulo, texto, categoria };
     const novoArrayNotas = [...this.state.notas, novaNota];
     const novoEstado = {
       notas: novoArrayNotas,
     };
     this.setState(novoEstado);
+  }
+
+  adicionarCategoria(nomeCategoria) {
+    const novoArrayCategorias = [...this.state.categorias, nomeCategoria];
+    const NovoEstado = { ...this.state, categorias: novoArrayCategorias };
+    this.setState(NovoEstado);
   }
 
   deletarNota(index) {
@@ -32,10 +39,12 @@ class App extends Component {
     return (
       <div className="conteudo">
         <FormularioCadastro
+          categorias={this.state.categorias}
           criarNota={this.criarNota.bind(this)}
         ></FormularioCadastro>
         <main className="conteudo-principal">
           <ListaDeCategorias
+            adicionarCategoria={this.adicionarCategoria.bind(this)}
             categorias={this.state.categorias}
           ></ListaDeCategorias>
           <ListaDeNotas
